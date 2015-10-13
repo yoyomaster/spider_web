@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>App</title>
+</head>
+<body>
+	<h1>WelCome to App</h1>  
+	{% if user.is_authenticated %}
+		<h3>{{user.username}}, 欢迎您(已登陆状态)</h3>
+	{% else %}
+		<h3>游客</h3>
+	{% endif %}
+
+	{% if technology %}
+		<ul>
+		{% for news  in technology %}     <!-- dict =>   {  newstype1: 对应的type新闻的记录   }   -->
+			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}">{{ news.newsTitle }}</a></li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+
+	{% if entertainment %}
+		<ul>
+		{% for news  in entertainment %}     <!-- dict =>   {  newstype1: 对应的type新闻的记录   }   -->
+			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}">{{ news.newsTitle }}</a></li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+	
+	<!-- <form id="comment" method="post" action="">
+		
+	</form>
+	<input type="submit" name="submit" value="我要评论" /> -->
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	{% if user.is_authenticated %}
+		<a href="{% url 'logout' %}">注销</a><br/><br/>
+		<a href="{% url 'register' %}">注册</a>
+		
+	{% else %}
+		<a href="{% url 'login' %}">登陆</a><br/><br/>
+		<a href="{% url 'register' %}">注册</a>
+	{% endif %}
+
+</body>
+</html>
