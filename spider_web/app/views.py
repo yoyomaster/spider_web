@@ -13,7 +13,7 @@ def index(request):
 	news_list['technology'] = News.objects.filter(newsType =  'technology')
 	news_list['entertainment'] = News.objects.filter(newsType = 'entertainment')
 	news_list['society'] = News.objects.filter(newsType = 'society')
-	print news_list  # for debug
+	#print news_list  # for debug
 	# for x in news_list['technology']:     #for debug
 	# 	print x.id
 	# 	print '-------------------'
@@ -105,7 +105,9 @@ def personal(request):
 # 		print '/n'
 # 	return HttpResponse('your browser is %s'  %ua)
 			
-
+#测试模板页面
+def test_base(request):
+	return render(request, 'base.html',{})
 
 
 
