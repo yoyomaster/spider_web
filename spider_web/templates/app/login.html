@@ -5,13 +5,20 @@
 </head>
 <body>
 	<h3>登陆</h3>
+	{% if errors %}
+		{% for error in errors %}
+			<strong>{{error}}</strong><br/>
+		{% endfor %}
+	{% endif %}
 	<form id="login_form" method="post" action="{% url 'login' %}" >
 		{% csrf_token %}
-		用户名: &nbsp<input type="text" name="username" value="" size="50" />
+		用户名: &nbsp<input type="text" name="username" value="" size="30" />
 		<br />
-		密    码: &nbsp <input type="password" name="password" value="" size="50" />
+		密&nbsp&nbsp码: &nbsp<input type="password" name="password" value="" size="30" />
 		<br />
 		<input type="submit" value="提交" />
 	</form>
+	<br/><br/>
+	<a href="{% url 'index' %}">返回主页</a>
 </body>
 </html>

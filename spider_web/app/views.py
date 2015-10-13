@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from app.forms import UserForm,ProfileForm
 
 # Create your views here.
-# 新闻类型暂时分两种 科技technology， 娱乐entertainment
+# 新闻类型暂时分两种 科技technology， 娱乐entertainment,社会类 society
 def index(request):
 	news_list = {}
 	news_list['technology'] = News.objects.filter(newsType =  'technology')
@@ -23,7 +23,10 @@ def index(request):
 
 def showNews(request, newsID):
 	news = News.objects.get(id = newsID)
-	return render(request, 'app/newsDetails.html', {'news':news})
+	print news
+	picture  =  Picture.objects.filter( pictureID = news.picture_id)
+	print  picture
+	return render(request, 'app/newsDetails.html', {'news':news,'picture':picture})
 
 
 def register(request):
@@ -59,6 +62,7 @@ def register(request):
 
 
 def user_login(request):
+	errors=[]
 	if request.method == 'POST':
 		username = request.POST.get('username')
 		password = request.POST.get('password')
@@ -68,9 +72,11 @@ def user_login(request):
 				login(request, user)
 				return HttpResponseRedirect('/app/')
 			else:
-				return HttpResponse('您的账号暂时无法使用')
+				errors.append('您的账号暂时无法使用')
+				return render(request,'app/login.html',{'errors':errors})
 		else:
-			return HttpResponse('用户名或密码错误，请重试')
+			errors.append('用户名或密码错误，请重试')
+			return render(request,'app/login.html',{'errors':errors})
 	else:
 		return render(request, 'app/login.html',{})
 
@@ -79,12 +85,21 @@ def user_logout(request):
 	return HttpResponseRedirect('/app/')
 
 
-def test(request):
-	ua = request.META
-	for x in ua:
-		print x
-		print '/n'
-	return HttpResponse('your browser is %s'  %ua)
+def personal(request):
+	res = {}
+	print request.user
+	print type(request.user)
+	profile = UserProfile.objects.get(user = request.user)
+	res['userImage'] = profile.userImage
+	return render(request,'app/personal.html',res)
+
+
+# def test(request):
+# 	ua = request.META
+# 	for x in ua:
+# 		print x
+# 		print '/n'
+# 	return HttpResponse('your browser is %s'  %ua)
 			
 
 

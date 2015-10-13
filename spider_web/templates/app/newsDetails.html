@@ -2,13 +2,29 @@
 <html>
 <head>
 	<title>News</title>
+	<style type="text/css">
+		pre{
+			font-size: 18px;
+			white-space: pre-wrap;       
+			white-space: -moz-pre-wrap;  
+			white-space: -pre-wrap;      
+			white-space: -o-pre-wrap;    
+			word-wrap: break-word;       
+		}
+	</style>
 </head>
 <body>
 	<h1>{{ news.newsTitle }}</h1>
 	<br/>
 	<br/>
-	<pre>{{ news.newsContent }}</pre>
-
+	<pre word-wrap: break-word>{{ news.newsContent }}</pre>
+	<!-- {{ news.newsContent }} -->
+	<br/><br/>
+	{% if picture %}
+		{% for img in picture %}
+			<img src="{{img.picture}}"><br/>
+		{% endfor %}
+	{% endif %}
 	<br/><br/>
 	<a href="{% url 'index' %}">返回首页</a>
 </body>

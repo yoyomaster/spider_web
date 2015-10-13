@@ -7,6 +7,8 @@
 	<h1>WelCome to App</h1>  
 	{% if user.is_authenticated %}
 		<h3>{{user.username}}, 欢迎您(已登陆状态)</h3>
+		<a href="{% url 'personal' %}">个人主页</a>
+		<br/><hr/>
 	{% else %}
 		<h3>游客</h3>
 	{% endif %}
@@ -14,7 +16,7 @@
 	{% if technology %}
 		<ul>
 		{% for news  in technology %}     <!-- dict =>   {  newstype1: 对应的type新闻的记录   }   -->
-			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}">{{ news.newsTitle }}</a></li>
+			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a></li>
 		{% endfor %}
 		</ul>
 	{% endif %}
@@ -22,7 +24,7 @@
 	{% if entertainment %}
 		<ul>
 		{% for news  in entertainment %}     <!-- dict =>   {  newstype1: 对应的type新闻的记录   }   -->
-			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}">{{ news.newsTitle }}</a></li>
+			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a></li>
 		{% endfor %}
 		</ul>
 	{% endif %}
@@ -30,7 +32,7 @@
 	{% if society %}
 		<ul>
 		{% for news  in society %}     <!-- dict =>   {  newstype1: 对应的type新闻的记录   }   -->
-			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}">{{ news.newsTitle }}</a></li>
+			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a></li>
 		{% endfor %}
 		</ul>
 	{% endif %}

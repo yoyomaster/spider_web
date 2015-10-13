@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='userprofile',
-            name='lastLogin',
-            field=models.DateTimeField(auto_now=True),
+            name='userImage',
+            field=models.ImageField(null=True, upload_to=b'user_image', blank=True),
             preserve_default=True,
         ),
     ]

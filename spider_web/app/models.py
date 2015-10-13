@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	userGrade = models.IntegerField(default = 1)
-	userImage = models.ImageField(upload_to = 'user_image', blank = True)
+	userImage = models.ImageField(upload_to = 'user_image',default='/static/image/default.gif', blank = True,null = True)
 	loginCount = models.IntegerField(default = 1)
 	lastLogin = models.DateTimeField(auto_now = True)
 	likeCount = models.IntegerField(default = 0)
@@ -20,9 +20,9 @@ class UserProfile(models.Model):
 
 class Picture(models.Model):
 #	picture = models.ImageField(upload_to = 'news_images', blank = True)
-	picture = models.CharField(max_length = 128)
+	picture = models.URLField(max_length = 256)
 	#news_id = models.ForeignKey(News)  #与news表外键相互引用
-	newsID = models.IntegerField()
+	pictureID = models.IntegerField()
 
 	def __unicode__(self):
 		return str(self.id)
@@ -33,6 +33,11 @@ class News(models.Model):
 	newsTitle = models.CharField(max_length = 128)
 	newsContent = models.TextField(max_length = 51200)
 	picture_id = models.IntegerField(blank = True, null=True)
+	browseNumber = models.IntegerField(default = 0)
+	commentNumber = models.IntegerField(default = 0)
+	likesNumber = models.IntegerField(default = 0)
+	newsTime = models.DateTimeField(auto_now = True)
+	newsUrl = models.URLField(max_length = 256)
 
 	def __unicode__(self):
 		return self.newsTitle
