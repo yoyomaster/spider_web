@@ -26,6 +26,14 @@
 		{% endfor %}
 		</ul>
 	{% endif %}
+
+	{% if society %}
+		<ul>
+		{% for news  in society %}     <!-- dict =>   {  newstype1: 对应的type新闻的记录   }   -->
+			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}">{{ news.newsTitle }}</a></li>
+		{% endfor %}
+		</ul>
+	{% endif %}
 	
 	<!-- <form id="comment" method="post" action="">
 		

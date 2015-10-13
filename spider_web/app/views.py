@@ -12,6 +12,7 @@ def index(request):
 	news_list = {}
 	news_list['technology'] = News.objects.filter(newsType =  'technology')
 	news_list['entertainment'] = News.objects.filter(newsType = 'entertainment')
+	news_list['society'] = News.objects.filter(newsType = 'society')
 	print news_list  # for debug
 	# for x in news_list['technology']:     #for debug
 	# 	print x.id
