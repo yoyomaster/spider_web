@@ -4,14 +4,10 @@
 	<title>个人主页</title>
 </head>
 <body>
-	{% load staticfiles %}
-	<h2>{{user.username}} 欢迎回家</h2>
-	{% if userImage %}
-		<img src="media/{{ userImage }}">
-		------------------------------------------
-		/media/{{ userImage }}
-	{% endif %}
+	
+	<h2> {{user.username}}  欢迎回家</h2>
+	<img src="{{ userImage }}">   <!-- 头像 -->
+	<br/><br/>
 	<a href="{% url 'index' %}">回到首页</a>
-	}
 </body>
 </html>

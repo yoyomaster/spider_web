@@ -43,7 +43,8 @@ def register(request):
 			profile.user = user
 			print request.FILES
 
-			if request.FILES['userImage']:
+			# if request.FILES['userImage']:
+			if 'userImage' in request.FILES:
 				print 'has a Picture 1'
 				profile.userImage = request.FILES['userImage']
 
@@ -91,6 +92,9 @@ def personal(request):
 	print type(request.user)
 	profile = UserProfile.objects.get(user = request.user)
 	res['userImage'] = profile.userImage
+	if str(res['userImage']) [0] != '/':
+		res['userImage'] = '/'+ str(res['userImage'])
+
 	return render(request,'app/personal.html',res)
 
 

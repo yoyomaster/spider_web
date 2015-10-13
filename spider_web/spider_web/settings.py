@@ -95,8 +95,10 @@ TEMPLATE_DIRS = (
 )
 
 STATIC_PATH = os.path.join(BASE_DIR,'static')
-STATIC_DIRS = [
+# STATIC_PATH2 = os.path.join(BASE_DIR,'media')
+STATICFILES_DIRS = [
     STATIC_PATH,
+    # STATIC_PATH2,
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = BASE_DIR

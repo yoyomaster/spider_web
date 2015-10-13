@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	userGrade = models.IntegerField(default = 1)
-	userImage = models.ImageField(upload_to = 'user_image',default='/static/image/default.gif', blank = True,null = True)
+	userImage = models.ImageField(upload_to = 'static/user_image',default='static/image/default.gif', blank = True,null = True)
 	loginCount = models.IntegerField(default = 1)
 	lastLogin = models.DateTimeField(auto_now = True)
 	likeCount = models.IntegerField(default = 0)
