@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('userGrade', models.IntegerField(default=1)),
-                ('userImage', models.ImageField(upload_to=b'user_image', blank=True)),
+                ('userImage', models.ImageField(default=b'static/image/default.gif', null=True, upload_to=b'static/user_image', blank=True)),
                 ('loginCount', models.IntegerField(default=1)),
                 ('lastLogin', models.DateTimeField(auto_now=True)),
                 ('likeCount', models.IntegerField(default=0)),
