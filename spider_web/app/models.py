@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	userGrade = models.IntegerField(default = 1)
-	userImage = models.ImageField(upload_to = 'static/user_image',default='static/image/default.gif', blank = True,null = True)
+	userImage = models.ImageField(upload_to = 'static/user_image',default='static/images/default.gif', blank = True,null = True)
 	loginCount = models.IntegerField(default = 1)
 	lastLogin = models.DateTimeField(auto_now = True)
 	likeCount = models.IntegerField(default = 0)
@@ -43,11 +43,12 @@ class News(models.Model):
 		return self.newsTitle
 
 class Comments(models.Model):
-	user_id = models.ForeignKey(User)
-	news_id = models.ForeignKey(News)
+	user_id = models.IntegerField()
+	news_id = models.IntegerField()
+	username = models.CharField(max_length=128)
 	content = models.CharField(max_length = 512)
-	content_time = models.DateTimeField( ) #自动保存时间auto_time =True
-	comment_parent_id = models.IntegerField()
+	content_time = models.DateTimeField(auto_now = True) #自动保存时间auto_now =True
+	comment_parent_id = models.IntegerField(default = 0)
 
 	def __unicode__(self):
 		return str(self.id)

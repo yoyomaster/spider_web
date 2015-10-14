@@ -13,17 +13,25 @@
 		<h3>游客</h3>
 	{% endif %}
 
-	{% if technology %}
+	{% if news_list %}
 		<ul>
-		{% for news  in technology %}     <!-- dict =>   {  newstype1: 对应的type新闻的记录   }   -->
-			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a></li>
+		{% for news  in news_list %}     
+			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a> &nbsp [浏览数] {{news.browseNumber}} &nbsp [评论数] &nbsp {{ news.commentNumber }}</li> &nbsp 
+		{% endfor %}
+		</ul>
+	{% endif %}
+
+	<!-- {% if technology %}
+		<ul>
+		{% for news  in technology %}     
+			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a></li> &nbsp 
 		{% endfor %}
 		</ul>
 	{% endif %}
 
 	{% if entertainment %}
 		<ul>
-		{% for news  in entertainment %}     <!-- dict =>   {  newstype1: 对应的type新闻的记录   }   -->
+		{% for news  in entertainment %}     
 			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a></li>
 		{% endfor %}
 		</ul>
@@ -31,11 +39,11 @@
 
 	{% if society %}
 		<ul>
-		{% for news  in society %}     <!-- dict =>   {  newstype1: 对应的type新闻的记录   }   -->
+		{% for news  in society %}     
 			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a></li>
 		{% endfor %}
 		</ul>
-	{% endif %}
+	{% endif %} -->
 	
 	<!-- <form id="comment" method="post" action="">
 		
@@ -46,7 +54,7 @@
 	<br/>
 	<br/>
 	{% if user.is_authenticated %}
-		<a href="{% url 'logout' %}">注销</a><br/><br/>
+		<a href="{% url 'logout'  %}">注销</a><br/><br/>
 		<a href="{% url 'register' %}">注册</a>
 		
 	{% else %}

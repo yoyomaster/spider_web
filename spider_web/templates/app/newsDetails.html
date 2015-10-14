@@ -14,7 +14,8 @@
 	</style>
 </head>
 <body>
-	<h1>{{ news.newsTitle }}</h1>
+	<a name='pageHead'></a>
+	<h1>{{ news.newsTitle }}</h1> <a href="{% url 'index' %}">返回首页</a>
 	<br/>
 	<br/>
 	<pre word-wrap: break-word>{{ news.newsContent }}</pre>
@@ -26,6 +27,27 @@
 		{% endfor %}
 	{% endif %}
 	<br/><br/>
-	<a href="{% url 'index' %}">返回首页</a>
+	<strong>网友评论：</strong><br/><br><hr/>
+	{% if comment %}
+		{% for com in comment %}
+			<strong>{{ com.username }}: </strong>
+			{{com.content}}<br/>
+			<font size="1">评论时间: <br/>{{com.content_time}}</font> <br/><br/><hr>
+		{% endfor %}
+	{% endif %}
+	<br/><br/>
+	<strong>我要评论： </strong><br/>
+	{% if user.is_authenticated %}
+		<form id="comment" method="post" action="{% url 'comment' user.id news.id%}">
+			{% csrf_token %}
+			<textarea  rows="8" cols="40" name="content"></textarea><br/>
+			<input type="submit" name='submit' value="提交" />
+		</form>
+	{% else %}
+		<textarea  rows="8" cols="40" name="content"></textarea><br/>
+		<a href="{% url 'login' %}"><img src="/static/images/login.png"  width="45px" height="27px"></a>
+	{% endif %}
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<a href="#pageHead">回到页首</a>
 </body>
 </html>
