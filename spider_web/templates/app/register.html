@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{% load staticfiles %}
+<!--<!DOCTYPE html>
 <html>
 <head>
 	<title>注册页</title>
@@ -18,5 +19,126 @@
 	{% endif %}
 	<br/>
 	<a href="{% url 'index' %}">返回首页</a>
+</body>
+</html>-->
+
+﻿<!DOCTYPE html >
+<html>
+<head>
+    <title id="title">bootstrap风格的html5表单验证示例</title>
+    <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet" type="text/css" />
+    <style>
+        html, body
+        {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .form-horizontal .control-group
+        {
+            margin-bottom: 16px;
+        }
+        .wrap
+        {
+            height: 100%;
+            display: -webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-pack: center;
+            overflow: auto;
+        }
+        .main
+        {
+            width: 600px;
+        }
+        .info
+        {
+            margin-bottom: 20px;
+            font-size: 21px;
+            line-height: 40px;
+            color: #333;
+            border: 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <form class="main form-horizontal" onsubmit="return check()" action="main/active"
+        onsubmit="return check();">
+        <fieldset>
+           
+            <legend>用户信息</legend>
+            <!--<div class="control-group">
+                <label class="control-label">
+                    性别</label>
+                <div class="controls">
+                    <label class="radio">
+                        <input type="radio" value="男" name="sex" checked="checked">
+                        男
+                    </label>
+                    <label class="radio">
+                        <input type="radio" value="女" name="sex">
+                        女
+                    </label>
+                </div>
+            </div>-->
+            <div class="control-group">
+                <label class="control-label">
+                    用户名</label>
+                <div class="controls">
+                    <input name="name" type="text" placeholder="必填项，实名" class="input-xlarge" required>
+                </div>
+            </div>
+             <div class="control-group">
+                <label class="control-label">
+                    邮箱</label>
+                <div class="controls">
+                    <input name="email" type="text" placeholder="必填项" class="input-xlarge" required pattern="^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$"
+                        title="邮箱正确格式：xxx@xxx.xxx">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="input01">
+                    移动电话</label>
+                <div class="controls">
+                    <input name="phone" type="text" placeholder="必填项" class="input-xlarge" required>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label">
+                    地址</label>
+                <div class="controls">
+                    <input name="addr" type="text" placeholder="必填项" class="input-xlarge" required>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">
+                </label>
+                <div class="controls">
+                    <button class="btn" type="submit" id="ok">
+                        开 通</button>
+                    <button class="btn" type="reset">
+                        重 置</button>
+                </div>
+            </div>
+        </fieldset>
+        </form>
+    </div>
+    <script>
+        function checkPasswords() {
+            var passl = document.getElementById("pwd");
+            var pass2 = document.getElementById("pwd1");
+            if (passl.value != pass2.value)
+                passl.setCustomValidity("两次密码必须输入一致！");
+            else
+                passl.setCustomValidity('');
+        }
+
+        function check() {
+            document.getElementById('ok').disabled = 'disabled';
+        }
+    </script>
 </body>
 </html>

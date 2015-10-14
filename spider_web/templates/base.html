@@ -53,11 +53,14 @@
 			<li>
 				<form class="navbar-form pull-right">
 
-  					<input type="text" class="input-small" placeholder="邮件">
+  					<input type="text" class="input-small" placeholder="用户名">
   					<input type="password" class="input-small" placeholder="密码">
   					
   					<button type="submit" class="btn btn-success">登录</button>
-  					<button type="submit" class="btn btn-primary">注册</button>
+  					
+   							<a class="btn btn-primary" href="{% url 'register' %}">注册</a>
+
+				
 				</form>
 
 			</li>
