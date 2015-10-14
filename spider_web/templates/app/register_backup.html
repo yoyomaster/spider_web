@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>注册页</title>
+</head>
+<body>
+	{% if registered %}
+		<strong>       已注册!</strong>
+	{% else %}
+	<h2>注册： </h2>
+	<form id= 'user_register' method="post" enctype="multipart/form-data" >
+		{% csrf_token %}
+		{{user_form.as_ul}}
+		{{profile_form.as_ul}}
+		<br/>
+		<input type="submit" name="submit" value="注册" />
+	</form>
+	{% endif %}
+	<br/>
+	<a href="{% url 'index' %}">返回首页</a>
+</body>
+</html>
+
+

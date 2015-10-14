@@ -62,19 +62,19 @@ def user_login(request):
 		if user:
 			if user.is_active:
 				login(request, user)
-				return HttpResponseRedirect('/app/')
+				return HttpResponseRedirect('/app/base/')
 			else:
 				errors.append('您的账号暂时无法使用')
-				return render(request,'app/login.html',{'errors':errors})
+				return render(request,'base.html',{'errors':errors})
 		else:
 			errors.append('用户名或密码错误，请重试')
-			return render(request,'app/login.html',{'errors':errors})
+			return render(request,'base.html',{'errors':errors})
 	else:
-		return render(request, 'app/login.html',{})
+		return render(request, 'base.html',{})
 
 def user_logout(request):
 	logout(request)
-	return HttpResponseRedirect('/app/')
+	return HttpResponseRedirect('/app/base/')
 
 
 def personal(request):
