@@ -39,7 +39,6 @@ def register(request):
 
 			# if request.FILES['userImage']:
 			if 'userImage' in request.FILES:
-				print 'has a Picture 1'
 				profile.userImage = request.FILES['userImage']
 
 			profile.save()

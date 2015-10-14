@@ -10,8 +10,16 @@
 	<h2>注册： </h2>
 	<form id= 'user_register' method="post" enctype="multipart/form-data" >
 		{% csrf_token %}
-		{{user_form.as_ul}}
-		{{profile_form.as_ul}}
+		<!-- 用户名: <input type="text" name="username" value="" size="30" /><br>
+		密 码: <input type="password" name="password" value="" size="30" /><br>
+		邮 箱: <input type="email" name="email" value="" size="30" /><br>
+		上传头像: <input type="file" name="userImage" value="" size="30" /><br> -->
+		<!-- {{user_form.as_ul}}
+		{{profile_form.as_ul}} -->
+		用户名:{{user_form.username}}<br/>
+		密 码: {{user_form.password}}<br/>
+		邮 箱:{{user_form.email}}<br/>
+		上传头像:{{profile_form.userImage}}<br/>
 		<br/>
 		<input type="submit" name="submit" value="注册" />
 	</form>
