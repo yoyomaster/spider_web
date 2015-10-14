@@ -1,3 +1,4 @@
+#encoding: utf-8
 """
 Django settings for spider_web project.
 
@@ -75,13 +76,15 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE='Asia/Shanghai'  #设置时区
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -99,4 +102,4 @@ STATICFILES_DIRS = [
     STATIC_PATH,
 ]
 
-MEDIA_ROOT = BASE_DIR
+MEDIA_ROOT = BASE_DIR  #上传文件路径

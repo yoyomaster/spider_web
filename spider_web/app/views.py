@@ -8,36 +8,18 @@ from django.contrib.auth.decorators import login_required
 from app.forms import UserForm,ProfileForm
 import MySQLdb
 
-# Create your views here.
-# 新闻类型暂时分两种 科技technology， 娱乐entertainment,社会类 society
 def index(request):
-	# news_list = {}
-	# news_list['technology'] = News.objects.filter(newsType =  'technology')
-	# news_list['entertainment'] = News.objects.filter(newsType = 'entertainment')
-	# news_list['society'] = News.objects.filter(newsType = 'society')
-
 	news_list = News.objects.all()[0:10]
 	# news_list = News.objects.order_by('?')[0:2]
-
 	#print news_list  # for debug
-	# for x in news_list['technology']:     #for debug
-	# 	print x.id
-	# 	print '-------------------'
 	return render(request, 'app/index.html', {'news_list':news_list})
 
-
-
 def showNews(request, newsID):
-	# allComment=[]
 	news = News.objects.get(id = newsID)
 	news.browseNumber = news.browseNumber +1
 	news.save()
-	#print news      #debug()
 	picture  =  Picture.objects.filter( pictureID = news.picture_id)
-	#print  picture
 	comment = Comments.objects.filter(news_id = newsID).order_by("-content_time")
-	# print newsID
-	# print comment
 	return render(request, 'app/newsDetails.html', {'news':news,'picture':picture,'comment':comment})
 
 
@@ -60,10 +42,8 @@ def register(request):
 				print 'has a Picture 1'
 				profile.userImage = request.FILES['userImage']
 
-
 			profile.save()
 			registered = True
-			# HttpResponseRedirect('app/')
 		else:
 			errors.append(user_form.errors)
 			errors.append(profile_form.errors)
