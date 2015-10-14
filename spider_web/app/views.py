@@ -1,32 +1,26 @@
 #encoding: utf-8
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from app.models import UserProfile, Picture, News, Comments
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from app.forms import UserForm,ProfileForm
+import MySQLdb
 
-# Create your views here.
-# 新闻类型暂时分两种 科技technology， 娱乐entertainment,社会类 society
 def index(request):
-	news_list = {}
-	news_list['technology'] = News.objects.filter(newsType =  'technology')
-	news_list['entertainment'] = News.objects.filter(newsType = 'entertainment')
-	news_list['society'] = News.objects.filter(newsType = 'society')
+	news_list = News.objects.all()[0:10]
+	# news_list = News.objects.order_by('?')[0:2]
 	#print news_list  # for debug
-	# for x in news_list['technology']:     #for debug
-	# 	print x.id
-	# 	print '-------------------'
-	return render(request, 'app/index.html', news_list)
-
-
+	return render(request, 'app/index.html', {'news_list':news_list})
 
 def showNews(request, newsID):
 	news = News.objects.get(id = newsID)
-	print news
+	news.browseNumber = news.browseNumber +1
+	news.save()
 	picture  =  Picture.objects.filter( pictureID = news.picture_id)
-	print  picture
-	return render(request, 'app/newsDetails.html', {'news':news,'picture':picture})
+	comment = Comments.objects.filter(news_id = newsID).order_by("-content_time")
+	return render(request, 'app/newsDetails.html', {'news':news,'picture':picture,'comment':comment})
 
 
 def register(request):
@@ -48,10 +42,8 @@ def register(request):
 				print 'has a Picture 1'
 				profile.userImage = request.FILES['userImage']
 
-
 			profile.save()
 			registered = True
-			# HttpResponseRedirect('app/')
 		else:
 			errors.append(user_form.errors)
 			errors.append(profile_form.errors)
@@ -92,10 +84,24 @@ def personal(request):
 	print type(request.user)
 	profile = UserProfile.objects.get(user = request.user)
 	res['userImage'] = profile.userImage
+	print profile.userImage
 	if str(res['userImage']) [0] != '/':
 		res['userImage'] = '/'+ str(res['userImage'])
 
 	return render(request,'app/personal.html',res)
+
+
+def comment(request,userID, newsID):
+	str1 = request.META['HTTP_REFERER']
+	pageStr = str1[str1.find('/app'):]
+	username = User.objects.get(id = userID)
+	news_to_update = News.objects.get(id = newsID)
+	news_to_update.commentNumber = news_to_update.commentNumber+1
+	news_to_update.save()
+	print pageStr
+	print request.POST['content']
+	Comments.objects.create(user_id = userID, news_id=newsID,username = username,content=request.POST['content'])
+	return HttpResponseRedirect(pageStr)
 
 
 # def test(request):
