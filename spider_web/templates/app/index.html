@@ -15,8 +15,9 @@
 
 	{% if news_list %}
 		<ul>
-		{% for news  in news_list %}     
-			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a> &nbsp [浏览数] {{news.browseNumber}} &nbsp [评论数] &nbsp {{ news.commentNumber }}</li> &nbsp 
+		{% for news  in news_list %}   
+			<li>[ {{news.newsType}} ]&nbsp<a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a> &nbsp [浏览数] {{news.browseNumber}} &nbsp [评论数] &nbsp {{ news.commentNumber }}</li> &nbsp
+			{{news.newsAbstract}}<br/><br/>
 		{% endfor %}
 		</ul>
 	{% endif %}

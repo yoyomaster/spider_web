@@ -40,6 +40,7 @@ class News(models.Model): #新闻表
 	likesNumber = models.IntegerField(default = 0) #点赞数
 	newsTime = models.DateTimeField(auto_now = True) #新闻生成时间
 	newsUrl = models.URLField(max_length = 256) #新闻来源链接
+	newsAbstract = models.CharField(max_length = 50)# 新闻概要
 
 	def __unicode__(self):
 		return self.newsTitle
