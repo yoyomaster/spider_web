@@ -6,7 +6,15 @@
 <body>
 	
 	<h2> {{user.username}}  欢迎回家</h2>
+	<a href="{% url 'modifyPassword' %}">修改密码</a><br/>
 	<img src="{{ userImage }}">   <!-- 头像 -->
+	<br/><br/>
+	{% if  news_list %}
+		评论过的新闻:<br/>
+		{% for  news in news_list %}
+			<a href="{{news.url}}">{{news.title}}</a><br>
+		{% endfor %}
+	{% endif %}
 	<br/><br/>
 	<a href="{% url 'index' %}">回到首页</a>
 </body>
