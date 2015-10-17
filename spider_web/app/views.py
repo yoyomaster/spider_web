@@ -162,9 +162,7 @@ def modifyPassword(request):
 	else:
 		return render(request, "app/modifyPassword.html",{})
 			
-#测试模板页面
-def test_base(request):
-	return render(request, 'base.html',{})
+
 
 
 
