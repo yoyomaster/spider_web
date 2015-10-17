@@ -1,5 +1,226 @@
 {% load staticfiles %}
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>明日头条</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="{% static "assets/css/bootstrap-responsive.css" %}" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="{% static "assets/ico/favicon.ico" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "assets/ico/apple-touch-icon-114-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "assets/ico/apple-touch-icon-72-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static "assets/ico/apple-touch-icon-57-precomposed.png" %}">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="{% url 'base' %}">明日头条</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="{% url 'base' %}">首页</a></li><!--href填空值返回本页面-->
+              <li><a href="#about">关于</a></li>
+              <li><a href="#contact">联系</a></li>
+            </ul>
+ 
+             <!--判断用户是否登陆-->
+              <!--{% if user.is_authenticated %}
+           
+
+            <form class="navbar-form pull-right" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <strong>{{user.username}}</strong>
+                <button type="submit" class="btn btn-danger">退出</button>
+                </form>
+              
+             {% else %}
+                  
+                {% if errors %}
+                    {% for error in errors %}-->
+                   <!--登陆错误信息-->
+                   <!-- <span class="label label-warning">{{error}}</span>-->
+                   <!--#########   bug     ############-->           
+                   <!--{% endfor %}
+                {% endif %}
+            
+             {% endif %}-->
+
+
+        <!--没有登陆重新登陆-->
+                    <!--<form class="navbar-form pull-right" method="post" action="{% url 'login' %}">
+                         {% csrf_token %}
+                       <input type="text" name="username" class="input-small" placeholder="用户名">
+                       <input type="password" name="password" class="input-small" placeholder="密码">
+                    
+                       <button type="submit"  class="btn btn-success">登录</button>
+                    
+                         <a class="btn btn-primary" href="{% url 'register' %}">注册</a>
+                    </form>-->
+            
+          </div><!--/.nav-collapse -->
+        </div><!--/container-->
+      </div>
+    </div>
+
+
+
+<div class="container">
+{% if registered %}
+
+<div class="hero-unit">
+  <h1>恭喜，已注册!</h1>
+  <p>感谢您的加入！</p>
+  <p>
+    <a class="btn btn-primary btn-large" href="{% url 'base' %}">
+      返回首页
+    </a>
+  </p>
+</div>
+
+
+  {% else %}
+    <div class="row">
+
+    <div class="span4">
+         <a href="#" class="thumbnail">
+         <img src="{% static "images/yoyo.gif" %}" alt="test">
+        <!--  {% if picture %}
+    {% for img in picture %}
+      <img src="{{img.picture}}"><br/>
+    {% endfor %}
+  {% endif %}--><!--新闻图片-->
+        </a>
+       </div><!--span4-->     
+
+     
+
+    <div class="span8">
+    
+<form class="form-horizontal" id="user_register" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+{% csrf_token %}
+  <fieldset>
+    <legend>用户注册</legend>
+    <div class="control-group" align="center">
+     
+      <div class="controls">
+      <label class="control-label" for="input01"><h4>用户名:</h4></label>
+        <!--<input type="text" class="input-xlarge" id="input01">-->
+        {{user_form.username}}
+        <p class="help-block">暂时不支持中文。。。</p>
+      </div>
+    </div>
+    <div class="control-group" align="center">
+      
+      <div class="controls">
+      <label class="control-label" for="input01"><h4>密码:</h4></label>
+        <!--<input type="text" class="input-xlarge" id="input01">-->
+        {{user_form.password}}
+        <p class="help-block">最少6位字母或数字</p>
+      </div>
+    </div>
+
+     <div class="control-group" align="center">
+      
+      <div class="controls">
+      <label class="control-label" for="input01"><h4>邮箱:</h4></label>
+        <!--<input type="text" class="input-xlarge" id="input01">-->
+        {{user_form.email}}
+        <p class="help-block">请输入您的邮箱，以便我们收录</p>
+      </div>
+    </div>
+
+    <div class="control-group" align="center">
+           
+            <div class="controls">
+             <label class="control-label" for="fileInput"><h4>上传头像:</h4></label>
+             {{profile_form.userImage}}
+              <!--<input class="input-file" id="fileInput" type="file">-->
+            </div>
+          </div>
+
+      <div class="control-group" align="center"> 
+          <button type="submit"  class="btn btn-success">确认</button>
+          
+      </div>
+      {% endif %}
+       
+       {% if errors %}
+       <div class="alert alert-error">
+        {% for error in errors %}
+        <strong>{{error}}</strong>
+     {% endfor %}
+        
+      </div>
+      {% endif %}
+
+      </fieldset>
+      </form>
+
+      </div><!--span8-->
+
+      
+       </div><!--row-->
+
+      <hr>
+
+    <footer>
+        <p>&copy; <strong>0611cpp</strong></p>
+      </footer>
+
+    </div> <!-- /container -->
+ 
+
+
+ <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static "assets/js/jquery.js" %}"></script>
+    <script src="{% static "assets/js/jquery.min.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-transition.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-alert.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-modal.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-dropdown.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-scrollspy.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-tab.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-tooltip.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-popover.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-button.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-collapse.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-carousel.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-typeahead.js" %}"></script>
+
+  </body>
+</html>
+
+
+
+<!-- {% load staticfiles %}
+<!DOCTYPE html>
 <html>
 <head>
 	<title>注册页</title>
@@ -11,12 +232,6 @@
 	<h2>注册： </h2>
 	<form id= 'user_register' method="post" enctype="multipart/form-data" >
 		{% csrf_token %}
-		<!-- 用户名: <input type="text" name="username" value="" size="30" /><br>
-		密 码: <input type="password" name="password" value="" size="30" /><br>
-		邮 箱: <input type="email" name="email" value="" size="30" /><br>
-		上传头像: <input type="file" name="userImage" value="" size="30" /><br> 
-		{{user_form.as_ul}}
-		{{profile_form.as_ul}} -->
 		用户名:{{user_form.username}}<br/>
 		密 码: {{user_form.password}}<br/>
 		邮 箱:{{user_form.email}}<br/>
@@ -27,7 +242,6 @@
 	{% endif %}
                 {% if errors %}
                         {% for error in errors %}
-                            <!--    # <script >alert("{{error}}")</script> -->
                             {{error}}
                         {% endfor %}
                 {% endif %}
@@ -35,124 +249,4 @@
 	<a href="{% url 'index' %}">返回首页</a>
 </body>
 </html>
-<!-- 
-﻿<!DOCTYPE html >
-<html>
-<head>
-    <title id="title">bootstrap风格的html5表单验证示例</title>
-    <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet" type="text/css" />
-    <style>
-        html, body
-        {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        .form-horizontal .control-group
-        {
-            margin-bottom: 16px;
-        }
-        .wrap
-        {
-            height: 100%;
-            display: -webkit-box;
-            -webkit-box-align: center;
-            -webkit-box-pack: center;
-            overflow: auto;
-        }
-        .main
-        {
-            width: 600px;
-        }
-        .info
-        {
-            margin-bottom: 20px;
-            font-size: 21px;
-            line-height: 40px;
-            color: #333;
-            border: 0;
-            border-bottom: 1px solid #e5e5e5;
-        }
-    </style>
-</head>
-<body>
-    <div class="wrap">
-        <form class="main form-horizontal" onsubmit="return check()" action="main/active"
-        onsubmit="return check();">
-        <fieldset>
-           
-            <legend>用户信息</legend>
-            <div class="control-group">
-                <label class="control-label">
-                    性别</label>
-                <div class="controls">
-                    <label class="radio">
-                        <input type="radio" value="男" name="sex" checked="checked">
-                        男
-                    </label>
-                    <label class="radio">
-                        <input type="radio" value="女" name="sex">
-                        女
-                    </label>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">
-                    用户名</label>
-                <div class="controls">
-                    <input name="name" type="text" placeholder="必填项，实名" class="input-xlarge" required>
-                </div>
-            </div>
-             <div class="control-group">
-                <label class="control-label">
-                    邮箱</label>
-                <div class="controls">
-                    <input name="email" type="text" placeholder="必填项" class="input-xlarge" required pattern="^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$"
-                        title="邮箱正确格式：xxx@xxx.xxx">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="input01">
-                    移动电话</label>
-                <div class="controls">
-                    <input name="phone" type="text" placeholder="必填项" class="input-xlarge" required>
-                </div>
-            </div>
-            
-            <div class="control-group">
-                <label class="control-label">
-                    地址</label>
-                <div class="controls">
-                    <input name="addr" type="text" placeholder="必填项" class="input-xlarge" required>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">
-                </label>
-                <div class="controls">
-                    <button class="btn" type="submit" id="ok">
-                        开 通</button>
-                    <button class="btn" type="reset">
-                        重 置</button>
-                </div>
-            </div>
-        </fieldset>
-        </form>
-    </div>
-    <script>
-        function checkPasswords() {
-            var passl = document.getElementById("pwd");
-            var pass2 = document.getElementById("pwd1");
-            if (passl.value != pass2.value)
-                passl.setCustomValidity("两次密码必须输入一致！");
-            else
-                passl.setCustomValidity('');
-        }
-
-        function check() {
-            document.getElementById('ok').disabled = 'disabled';
-        }
-    </script>
-</body>
-</html> -->
+ -->

@@ -24,7 +24,7 @@ class Picture(models.Model):  #保存新闻中的图片URL
 #	picture = models.ImageField(upload_to = 'news_images', blank = True)
 	picture = models.URLField(max_length = 256)  #保存图片的URL
 	#news_id = models.ForeignKey(News)  #与news表外键相互引用
-	pictureID = models.IntegerField()  #与News表的中picture_id对应
+	pictureID = models.TextField(max_length = 100,blank = True, null=True)  #与News表的中picture_id对应
 
 	def __unicode__(self):
 		return str(self.id)
@@ -34,13 +34,13 @@ class News(models.Model): #新闻表
 	newsLable = models.TextField(max_length  = 20, blank = True,null = True) #新闻label
 	newsTitle = models.TextField(max_length = 128)  #新闻标题
 	newsContent = models.TextField(max_length = 51200)  #新闻正文
-	picture_id = models.TextField(blank = True, null=True) #与Picture表对应的pictureID
+	picture_id = models.TextField(max_length = 100,blank = True, null=True) #与Picture表对应的pictureID
 	browseNumber = models.IntegerField(default = 0) #当前新闻被浏览的次数
 	commentNumber = models.IntegerField(default = 0) #评论次数
 	likesNumber = models.IntegerField(default = 0) #点赞数
 	newsTime = models.DateTimeField(auto_now_add = True) #新闻生成时间
 	newsUrl = models.TextField(max_length = 256) #新闻来源链接
-	newsAbstract = models.TextField(max_length = 50)# 新闻概要
+	newsAbstract = models.TextField(max_length = 100)# 新闻概要
 	urlmd5id = models.TextField(max_length  =50) #md5加密去重，对url加密
 	def __unicode__(self):
 		return self.newsTitle
@@ -56,8 +56,7 @@ class Comments(models.Model):  #新闻评论表
 	def __unicode__(self):
 		return str(self.id)
 
-class test(models.Model):
-	name =models.CharField(max_length=100)
+
 
 
 

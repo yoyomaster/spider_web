@@ -10,10 +10,30 @@ import MySQLdb
 from django.db import connection,transaction
 
 def index(request):
-	news_list = News.objects.all()[0:10]
-	# news_list = News.objects.order_by('?')[0:2]
+	news_list = []
+	# news_list = News.objects.all()[0:10]
+	news_list1 = News.objects.order_by('?')
 	#print news_list  # for debug
-	return render(request, 'app/index.html', {'news_list':news_list})
+	for one_news in news_list1:
+		picRecord =Picture.objects.filter( pictureID = one_news.picture_id )
+		picUrl = ""
+		if picRecord:
+			picUrl = picRecord[0].picture
+		newsList={}
+		newsList['title'] = one_news.newsTitle
+		newsList['abstract'] = one_news.newsAbstract
+		newsList['picUrl'] = picUrl
+		newsList['time'] = one_news.newsTime
+		newsList['browseNumber'] = one_news.browseNumber
+		newsList['likesNumber'] = one_news.likesNumber
+		newsList['commentNumber'] = one_news.commentNumber
+		newsList['newsUrl'] = one_news.newsUrl
+		newsList['id'] = one_news.id
+		news_list.append(newsList)
+		print picUrl
+		print "------------------------------------------------------------------"
+
+	return render(request, 'app/base.html', {'news_list':news_list})
 
 def showNews(request, newsID):
 	#News表浏览数+1
@@ -39,7 +59,6 @@ def register(request):
 			profile = profile_form.save(commit=False)
 			profile.user = user
 
-			# if request.FILES['userImage']:
 			if 'userImage' in request.FILES:
 				profile.userImage = request.FILES['userImage']
 
@@ -140,8 +159,7 @@ def modifyPassword(request):
 	errors=''
 	if request.method == "POST":
 		if len(request.POST['old_password']) > 0 and len(request.POST['passwrod1']) > 0 and len(request.POST['passwrod2']) > 0:
-		# if 'old_password' in request.POST and 'passwrod1' in request.POST and 'passwrod2' in request.POST:
-		# if (request.POST['old_password']) and (request.POST['passwrod1']) and (request.POST['passwrod2'])
+
 			user = User.objects.get(username = request.user.username)
 			if request.POST['passwrod1'] == request.POST['passwrod2']:
 				user_m = User.objects.get(username = request.user.username)

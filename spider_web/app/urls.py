@@ -12,5 +12,5 @@ urlpatterns = patterns('',
     url(r'^comment/(?P<userID>\d+?)/(?P<newsID>\d+?)/$', views.comment, name='comment'),
     url(r'^modifyPassword/$', views.modifyPassword, name = 'modifyPassword'),
 # 测试模板页面
-    url(r'^base/$',views.test_base, name = 'base'),
+    url(r'^base/$',views.index, name = 'base'),
 )

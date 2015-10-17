@@ -1,4 +1,175 @@
+{% load staticfiles %}
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>明日头条</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="{% static "assets/css/bootstrap-responsive.css" %}" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="{% static "assets/ico/favicon.ico" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "assets/ico/apple-touch-icon-114-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "assets/ico/apple-touch-icon-72-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static "assets/ico/apple-touch-icon-57-precomposed.png" %}">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="{% url 'base' %}">明日头条</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="{% url 'base' %}">首页</a></li><!--href填空值返回本页面-->
+              <li><a href="#about">关于</a></li>
+              <li><a href="#contact">联系</a></li>
+            </ul>
+ 
+             <!--判断用户是否登陆-->
+              {% if user.is_authenticated %}
+           
+
+            <form class="navbar-form pull-right" method="post" action="{% url 'logout' %}">
+              	{% csrf_token %}
+                <a href="{% url 'personal' %}"><strong>{{user.username}}</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+              	<button type="submit" class="btn btn-danger">退出</button>
+       			</form>
+              
+             {% else %}
+			      
+                {% if errors %}
+                    {% for error in errors %}
+                   <!--登陆错误信息-->
+                    <span class="label label-warning">{{error}}</span>
+                   <!--#########   bug     ############-->           
+                   {% endfor %}
+                      {% endif %}
+            
+        <!--没有登陆重新登陆-->
+				    <form class="navbar-form pull-right" method="post" action="{% url 'login' %}">
+					     {% csrf_token %}
+  					  <!-- <input type="text" name="username" class="input-small" placeholder="用户名">
+  					   <input type="password" name="password" class="input-small" placeholder="密码">
+  					
+  					   <button type="submit"  class="btn btn-success">登录</button>-->
+  					   <a class="btn btn-success" href="{% url 'login' %}">登录</a>
+   						 <a class="btn btn-primary" href="{% url 'register' %}">注册</a>
+				    </form>
+			
+			       {% endif %}
+          </div><!--/.nav-collapse -->
+        </div><!--/container-->
+      </div>
+    </div>
+
+
+ <div class="container">
+
+      <!-- Example row of columns -->
+      
+     
+      <!--  新闻 1-->
+      <div class="row">
+
+      <div class="span3">
+         <a href="#" class="thumbnail">
+         <!--<img src="{% static "images/jay.jpg" %}" alt="test">-->
+         <img src="{{ userImage }}" alt="头像">   <!-- 头像 -->
+        </a>
+       </div><!--span3-->     
+
+
+
+        <div class="span9">
+          <h2>个人主页</h2>
+          <p><h3>{{user.username}}  欢迎回家</h3>
+         
+          <a class="btn btn-warning" href="{% url 'modifyPassword' %}">修改密码</a>
+          </p>
+         
+          
+
+{% if  news_list %}
+          <div class="table-responsive">
+   <table class="table table-striped table-bordered table-hover">
+      <caption><h2><strong>评论过的新闻</strong></h2></caption>
+      <thead>
+         <tr>
+            
+            <th>新闻标题</th>
+         </tr>
+      </thead>
+      <tbody>
+    {% for  news in news_list %}
+         <tr>
+            <td><strong><a href="{{news.url}}">{{news.title}}</a></strong></td>
+           
+         </tr>
+       {% endfor %}  
+      </tbody>
+   </table>
+</div>
+     {% endif %}
+
+        </div><!--span9-->
+       
+      </div><!--row-->
+      <hr>
+      
+
+      <footer>
+        <p>&copy; <strong>0611cpp</strong></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+
+     <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static "assets/js/jquery.js" %}"></script>
+    <script src="{% static "assets/js/jquery.min.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-transition.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-alert.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-modal.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-dropdown.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-scrollspy.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-tab.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-tooltip.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-popover.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-button.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-collapse.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-carousel.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap-typeahead.js" %}"></script>
+
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<title>个人主页</title>
@@ -7,7 +178,7 @@
 	
 	<h2> {{user.username}}  欢迎回家</h2>
 	<a href="{% url 'modifyPassword' %}">修改密码</a><br/>
-	<img src="{{ userImage }}">   <!-- 头像 -->
+	<img src="{{ userImage }}">   
 	<br/><br/>
 	{% if  news_list %}
 		评论过的新闻:<br/>
@@ -18,4 +189,4 @@
 	<br/><br/>
 	<a href="{% url 'index' %}">回到首页</a>
 </body>
-</html>
+</html> -->

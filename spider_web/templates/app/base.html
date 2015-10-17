@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!-- Le styles -->
     <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet">
     <style type="text/css">
       body {
@@ -16,6 +17,7 @@
       }
     </style>
     <link href="{% static "assets/css/bootstrap-responsive.css" %}" rel="stylesheet">
+
 
     <link rel="shortcut icon" href="{% static "assets/ico/favicon.ico" %}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "assets/ico/apple-touch-icon-114-precomposed.png" %}">
@@ -36,83 +38,97 @@
           <a class="brand" href="{% url 'base' %}">明日头条</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="{% url 'base' %}">首页</a></li>
+              <li class="active"><a href="{% url 'base' %}">首页</a></li><!--href填空值返回本页面-->
               <li><a href="#about">关于</a></li>
               <li><a href="#contact">联系</a></li>
             </ul>
  
-             
-			
-          </div>
-        </div>
-      </div>
-    </div>
+             <!--判断用户是否登陆-->
+              {% if user.is_authenticated %}
+           
 
+            <form class="navbar-form pull-right" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <a href="{% url 'personal' %}"><strong>{{user.username}}</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                <button type="submit" class="btn btn-danger">退出</button>
+            </form>
+              
+             {% else %}
+            
+                {% if errors %}
+                    {% for error in errors %}
+                   <!--登陆错误信息-->
+                    <span class="label label-warning">{{error}}</span>
+                   <!--#########   bug     ############-->           
+                   {% endfor %}
+                      {% endif %}
+            
+        <!--没有登陆重新登陆-->
+            <form class="navbar-form pull-right" method="post" action="{% url 'login' %}">
+               {% csrf_token %}
 
-
-<div class="container">
-
-{% if user.is_authenticated %}
-	<div class="hero-unit">
-  		<h3>{{user.username}}, 欢迎您</h3>
-		<a class="brand" href="{% url 'personal' %}"><h4>个人主页</h4></a>
-  		<p>
-   		 <a class="btn btn-primary btn-large" href="{% url 'base' %}">
-      			返回首页
-   		 </a>
-  		</p>
-	</div>
-
-{% else %}
-	<div class="hero-unit">
-  <form class="form-horizontal" id="user_login" method="post" action="{% url 'login' %}" enctype="multipart/form-data">
-{% csrf_token %}
-  <fieldset>
-    <legend>用户登录</legend>
-    <div class="control-group" align="center">
-     
-      <div class="controls">
-      <label class="control-label" for="input01" ><h4>用户名:</h4></label>
-        <input type="text" class="input-xlarge" id="input01" name="username">
-        
-       
-      </div>
-    </div>
-    <div class="control-group" align="center">
+               <a class="btn btn-success" href="{% url 'login' %}">登录</a>
+               <a class="btn btn-primary" href="{% url 'register' %}">注册</a>
+            </form>
       
-      <div class="controls">
-      <label class="control-label" for="input01"><h4>密码:</h4></label>
-        <input type="password" class="input-xlarge" id="input01" name="password">
-      
+             {% endif %}
+          </div><!--/.nav-collapse -->
+        </div><!--/container-->
       </div>
     </div>
 
-      <div class="control-group" align="center"> 
-          <button type="submit"  class="btn btn-success">确认</button>
+    
+
+    <div class="container">
+
+      <!-- Example row of columns -->
+      
+      {% if news_list %}
+          {% for news  in news_list %} 
+      <!--  新闻 1-->
+      <div class="row">
+        <div class="span10">
+          <h2><a href="{% url 'showNews' news.id %}" target="_blank">{{ news.title }}</a></h2>
+          <p>{{ news.time }}</p>
+           <p>{{ news.abstract }}</p>
+          <p><a class="btn" href="{{ news.newsUrl }}">了解更多 &raquo;</a></p>
           
-      </div>
-  {% endif %}  
+           <table>    
+            <tbody>
+              <tr>
+                <td><h4>浏览:({{news.browseNumber}})</h4></td>
+                <td>&nbsp</td>
+                <td><h4>点赞:({{news.likesNumber}})</h4></td>
+                <td>&nbsp</td>
+                <td><a href="{% url 'showNews' news.id %}"><h4>评论:({{news.commentNumber}})</h4></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div><!--span10-->
        
-       {% if errors %}
-       <div class="alert alert-error">
-        {% for error in errors %}
-        <strong>{{error}}</strong>
-     {% endfor %}
-        
-      </div>
+         
+
+
+        {% if news.picUrl %}
+        <div class="span2">
+         <a href="#" class="thumbnail">
+         <img src="{{ news.picUrl }}" alt="">
+        </a>
+       </div><!--span2--> 
+       {% endif %}    
+      </div><!--row-->
+      <hr>
+        {% endfor %}
       {% endif %}
 
-      </fieldset>
-      </form>
-</div>
 
-    <footer>
+     
+
+      <footer>
         <p>&copy; <strong>0611cpp</strong></p>
       </footer>
 
-    </div> 
- 
-
+    </div> <!-- /container -->
 
     <script src="{% static "assets/js/jquery.js" %}"></script>
     <script src="{% static "assets/js/jquery.min.js" %}"></script>
@@ -132,28 +148,3 @@
   </body>
 </html>
 
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	<title>登陆</title>
-</head>
-<body>
-	<h3>登陆</h3>
-	{% if errors %}
-		{% for error in errors %}
-			<strong>{{error}}</strong><br/>
-		{% endfor %}
-	{% endif %}
-	<form id="login_form" method="post" action="{% url 'login' %}" >
-		{% csrf_token %}
-		用户名: &nbsp<input type="text" name="username" value="" size="30" />
-		<br />
-		密&nbsp&nbsp码: &nbsp<input type="password" name="password" value="" size="30" />
-		<br />
-		<input type="submit" value="提交" />
-	</form>
-	<br/><br/>
-	<a href="{% url 'index' %}">返回主页</a>
-</body>
-</html> -->
