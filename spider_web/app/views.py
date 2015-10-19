@@ -43,7 +43,7 @@ def showNews(request, newsID):
 	news.save()
 
 	picture  =  Picture.objects.filter( pictureID = news.picture_id)
-	comment = Comments.objects.filter(news_id = newsID).order_by("-content_time")
+	comment = Comments.objects.filter(news_id = newsID).order_by("content_time")
 	return render(request, 'app/newsDetails.html', {'news':news,'picture':picture,'comment':comment})
 
 
@@ -149,8 +149,6 @@ def comment(request,userID, newsID):
 	profile_m.commentCount = profile_m.commentCount+1
 	profile_m.save()
 
-	print pageStr
-	print request.POST['content']
 	Comments.objects.create(user_id = userID, news_id=newsID,username = username,content=request.POST['content'])
 	return HttpResponseRedirect(pageStr)
 
