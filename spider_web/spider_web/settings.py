@@ -25,7 +25,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -66,6 +66,7 @@ DATABASES = {
         'NAME': 'spider_web',
         'USER': 'root',
         'PASSWORD': 'root',
+        #'HOST': '192.168.43.23',
         'HOST': '',
         'PORT': '3306',
     }
@@ -91,6 +92,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = '/var/static'
 
 TEMPLATE_PATH = os.path.join(BASE_DIR,'templates')
 TEMPLATE_DIRS = (
@@ -102,4 +104,5 @@ STATICFILES_DIRS = [
     STATIC_PATH,
 ]
 
-MEDIA_ROOT = BASE_DIR  #上传文件路径
+#MEDIA_ROOT = BASE_DIR  #上传文件路径
+MEDIA_ROOT = '/var/'

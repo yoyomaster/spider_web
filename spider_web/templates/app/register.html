@@ -1,52 +1,8 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>明日头条</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% extends 'base.html' %}
 
-    <!-- Le styles -->
-    <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
-    <link href="{% static "assets/css/bootstrap-responsive.css" %}" rel="stylesheet">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="{% static "assets/ico/favicon.ico" %}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "assets/ico/apple-touch-icon-114-precomposed.png" %}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "assets/ico/apple-touch-icon-72-precomposed.png" %}">
-    <link rel="apple-touch-icon-precomposed" href="{% static "assets/ico/apple-touch-icon-57-precomposed.png" %}">
-  </head>
-
-  <body>
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="{% url 'base' %}">明日头条</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="{% url 'base' %}">首页</a></li><!--href填空值返回本页面-->
-              <li><a href="#about">关于</a></li>
-              <li><a href="#contact">联系</a></li>
-            </ul>
+    {% load staticfiles %}
+ 
+ {% block body_block %}
  
              <!--判断用户是否登陆-->
               <!--{% if user.is_authenticated %}
@@ -96,7 +52,7 @@
   <h1>恭喜，已注册!</h1>
   <p>感谢您的加入！</p>
   <p>
-    <a class="btn btn-primary btn-large" href="{% url 'base' %}">
+    <a class="btn btn-primary btn-large" href="{% url 'index' %}">
       返回首页
     </a>
   </p>
@@ -128,7 +84,8 @@
     <div class="control-group" align="center">
      
       <div class="controls">
-      <label class="control-label" for="input01"><h4>用户名:</h4></label>
+      <!-- <label class="control-label" for="input01"><h4>用户名:</h4></label> -->
+        <span style="font-size:18px">用户名: &nbsp &nbsp</span>
         <!--<input type="text" class="input-xlarge" id="input01">-->
         {{user_form.username}}
         <p class="help-block">暂时不支持中文。。。</p>
@@ -137,7 +94,8 @@
     <div class="control-group" align="center">
       
       <div class="controls">
-      <label class="control-label" for="input01"><h4>密码:</h4></label>
+       <span style="font-size:18px">密 &nbsp 码: &nbsp &nbsp</span>
+      <!-- <label class="control-label" for="input01"><h4>密码:</h4></label> -->
         <!--<input type="text" class="input-xlarge" id="input01">-->
         {{user_form.password}}
         <p class="help-block">最少6位字母或数字</p>
@@ -147,7 +105,8 @@
      <div class="control-group" align="center">
       
       <div class="controls">
-      <label class="control-label" for="input01"><h4>邮箱:</h4></label>
+      <span style="font-size:18px">邮 &nbsp 箱: &nbsp &nbsp</span>
+      <!-- <label class="control-label" for="input01"><h4>邮箱:</h4></label> -->
         <!--<input type="text" class="input-xlarge" id="input01">-->
         {{user_form.email}}
         <p class="help-block">请输入您的邮箱，以便我们收录</p>
@@ -157,14 +116,18 @@
     <div class="control-group" align="center">
            
             <div class="controls">
-             <label class="control-label" for="fileInput"><h4>上传头像:</h4></label>
+            <span style="font-size:18px">头 &nbsp 像:&nbsp&nbsp</span>
+             <!-- <label class="control-label" for="fileInput"><h4>上传头像:</h4></label> -->
              {{profile_form.userImage}}
               <!--<input class="input-file" id="fileInput" type="file">-->
             </div>
           </div>
+          <br/>
 
       <div class="control-group" align="center"> 
-          <button type="submit"  class="btn btn-success">确认</button>
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+          &nbsp&nbsp&nbsp&nbsp<button type="submit"  class="btn btn-success">确认</button>
           
       </div>
       {% endif %}
@@ -195,58 +158,4 @@
     </div> <!-- /container -->
  
 
-
- <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{% static "assets/js/jquery.js" %}"></script>
-    <script src="{% static "assets/js/jquery.min.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-transition.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-alert.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-modal.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-dropdown.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-scrollspy.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-tab.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-tooltip.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-popover.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-button.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-collapse.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-carousel.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-typeahead.js" %}"></script>
-
-  </body>
-</html>
-
-
-
-<!-- {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-<head>
-	<title>注册页</title>
-</head>
-<body>
-	{% if registered %}
-		<strong>       注册成功!</strong>
-	{% else %}
-	<h2>注册： </h2>
-	<form id= 'user_register' method="post" enctype="multipart/form-data" >
-		{% csrf_token %}
-		用户名:{{user_form.username}}<br/>
-		密 码: {{user_form.password}}<br/>
-		邮 箱:{{user_form.email}}<br/>
-		上传头像:{{profile_form.userImage}}<br/>
-		<br/>
-		<input type="submit" name="submit" value="注册" />
-	</form>
-	{% endif %}
-                {% if errors %}
-                        {% for error in errors %}
-                            {{error}}
-                        {% endfor %}
-                {% endif %}
-
-	<a href="{% url 'index' %}">返回首页</a>
-</body>
-</html>
- -->
+{% endblock %}

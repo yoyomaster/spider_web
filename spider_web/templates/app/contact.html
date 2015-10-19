@@ -3,7 +3,7 @@
     {% load staticfiles %}
  
  {% block body_block %}
-
+ 
              <!--判断用户是否登陆-->
               {% if user.is_authenticated %}
            
@@ -38,56 +38,36 @@
       </div>
     </div>
 
-    
-
     <div class="container">
 
-      <!-- Example row of columns -->
-      
-      {% if news_list %}
-          {% for news  in news_list %} 
-      <!--  新闻 1-->
-      <div class="row">
-        <div class="span9">
-          <h2><a href="{% url 'showNews' news.id %}" target="_blank"> [{{news.type}}] {{ news.title }}</a></h2>
-          <p>{{ news.time }}</p>
-           <p>{{ news.abstract }}</p>
-          <p><a class="btn" href="{{ news.newsUrl }}"  target="_blank">了解更多 &raquo;</a></p>
+    <div class="row">
+        <div class="span6">
+        <div class="hero-unit">
+          <h2>感谢捐赠</h2>
+         
+          <p>感谢感谢</p>
           
-           <table>    
-            <tbody>
-              <tr>
-                <td><h4>浏览:({{news.browseNumber}})</h4></td>
-                <td>&nbsp</td>
-                <td><h4>点赞:({{news.likesNumber}})</h4></td>
-                <td>&nbsp</td>
-                <td><a href="{% url 'showNews' news.id %}"><h4>评论:({{news.commentNumber}})</h4></a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div><!--span10-->
+        </div>
+        </div><!--span6-->
        
          
 
 
-        {% if news.picUrl %}
-        <div class="span3">
+        
+        <div class="span6">
          <a href="#" class="thumbnail">
-         <img src="{{ news.picUrl }}" alt="">
+         <img src="{% static "images/donate.png" %}" alt="">
         </a>
-       </div><!--span2--> 
-       {% endif %}    
+       </div><!--span6--> 
+       
       </div><!--row-->
-      <hr >
-        {% endfor %}
-      {% endif %}
 
+   
 
-      <footer>
+    <footer>
         <p>&copy; <strong>0611cpp</strong></p>
       </footer>
 
-    </div> <!-- /container -->
+    </div> 
 
-{% endblock %}
-   
+ {% endblock %}

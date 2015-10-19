@@ -15,15 +15,23 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
+        a:link {
+text-decoration: none;
+}
+a:visited {
+text-decoration: none;
+}
+a:hover {
+text-decoration: none;
+}
+a:active {
+text-decoration: none;
+}
+
     </style>
     <link href="{% static "assets/css/bootstrap-responsive.css" %}" rel="stylesheet">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
-    <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="{% static "assets/ico/favicon.ico" %}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "assets/ico/apple-touch-icon-114-precomposed.png" %}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "assets/ico/apple-touch-icon-72-precomposed.png" %}">
@@ -40,127 +48,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="{% url 'base' %}">明日头条</a>
+          <a class="brand" href="{% url 'index' %}">明日头条</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="{% url 'base' %}">首页</a></li><!--href填空值返回本页面-->
-              <li><a href="#about">关于</a></li>
-              <li><a href="#contact">联系</a></li>
+              <li class="active"><a href="{% url 'index' %}">首页</a></li><!--href填空值返回本页面-->
+              <li><a href="{% url 'about' %}">关于</a></li>
+              <li><a href="{% url 'contact' %}">联系</a></li>
             </ul>
  
-             <!--判断用户是否登陆-->
-              {% if user.is_authenticated %}
-           
+        {% block body_block %}{% endblock %}
 
-            <form class="navbar-form pull-right" method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <a href="{% url 'personal' %}"><strong>{{user.username}}</strong></a>
-                <button type="submit" class="btn btn-danger">退出</button>
-            </form>
-              
-             {% else %}
-            
-                {% if errors %}
-                    {% for error in errors %}
-                   <!--登陆错误信息-->
-                    <span class="label label-warning">{{error}}</span>
-                   <!--#########   bug     ############-->           
-                   {% endfor %}
-                      {% endif %}
-            
-        <!--没有登陆重新登陆-->
-            <form class="navbar-form pull-right" method="post" action="{% url 'login' %}">
-               {% csrf_token %}
-              <!-- <input type="text" name="username" class="input-small" placeholder="用户名">
-               <input type="password" name="password" class="input-small" placeholder="密码">
-            
-               <button type="submit"  class="btn btn-success">登录</button>-->
-               <a class="btn btn-success" href="{% url 'login' %}">登录</a>
-               <a class="btn btn-primary" href="{% url 'register' %}">注册</a>
-            </form>
-      
-             {% endif %}
-          </div><!--/.nav-collapse -->
-        </div><!--/container-->
-      </div>
-    </div>
-
-    
-
-    <div class="container">
-
-      <!-- Example row of columns -->
-      
-      {% if news_list %}
-          {% for news  in news_list %} 
-      <!--  新闻 1-->
-      <div class="row">
-        <div class="span10">
-          <h2><a href="{% url 'showNews' news.id %}" target="_blank">{{ news.newsTitle }}</a></h2>
-          <p>{{ news.newsTime }}</p>
-           <p>{{ news.newsContent }}</p>
-          <p><a class="btn" href="{{ news.newsUrl }}">了解更多 &raquo;</a></p>
-          
-           <table>    
-            <tbody>
-              <tr>
-                <td><h4>浏览:({{news.browseNumber}})</h4></td>
-                <td>&nbsp</td>
-                <td><h4>点赞:({{news.likesNumber}})</h4></td>
-                <td>&nbsp</td>
-                <td><a href="{% url 'showNews' news.id %}"><h4>评论:({{news.commentNumber}})</h4></a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div><!--span10-->
-       
-         
-
-
-        
-        <div class="span2">
-         <a href="#" class="thumbnail">
-         <img src="{% static "images/jay.jpg" %}" alt="test">
-        </a>
-       </div><!--span2-->     
-      </div><!--row-->
-      <hr>
-        {% endfor %}
-      {% endif %}
-
-
-      <!--新闻 2
-      <div class="row">
-        <div class="span10">
-          <h2>胡主席很伟大</h2>
-           <p>
-       天下饥荒人相食，晋惠帝问臣：<strong>“何不食肉糜?”</strong>
-       帝国将倾太监欺，光绪帝问师：<strong>“一个鸡蛋要3两银子你吃得起吗？”</strong>
-       天朝和谐房价涨，胡主席问民：<strong>“45平米的房子一个月77块钱的租金能承受么？”</strong>
-       史称<span class='label label-important' style="font-size:15px;">盛世三问！</span>
-     </p>
-          <p><a class="btn" href="#">了解更多 &raquo;</a></p>
-        </div>
-        <div class="span2">
-         <a href="#" class="thumbnail">
-         <img src="{% static "images/jay.jpg" %}" alt="test">
-        </a>
-          
-       </div>
-        
-      </div>
-
-      <hr>-->
-
-      <footer>
-        <p>&copy; <strong>0611cpp</strong></p>
-      </footer>
-
-    </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     <script src="{% static "assets/js/jquery.js" %}"></script>
     <script src="{% static "assets/js/jquery.min.js" %}"></script>
     <script src="{% static "assets/js/bootstrap-transition.js" %}"></script>

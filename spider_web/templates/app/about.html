@@ -1,0 +1,131 @@
+ {% extends 'base.html' %}
+
+    {% load staticfiles %}
+ 
+ {% block body_block %}
+ 
+             <!--判断用户是否登陆-->
+              {% if user.is_authenticated %}
+           
+
+            <form class="navbar-form pull-right" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <a href="{% url 'personal' %}"><strong>{{user.username}}</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                <button type="submit" class="btn btn-danger">退出</button>
+            </form>
+              
+             {% else %}
+            
+                {% if errors %}
+                    {% for error in errors %}
+                   <!--登陆错误信息-->
+                    <span class="label label-warning">{{error}}</span>
+                   <!--#########   bug     ############-->           
+                   {% endfor %}
+                      {% endif %}
+            
+        <!--没有登陆重新登陆-->
+            <form class="navbar-form pull-right" method="post" action="{% url 'login' %}">
+               {% csrf_token %}
+
+               <a class="btn btn-success" href="{% url 'login' %}">登录</a>
+               <a class="btn btn-primary" href="{% url 'register' %}">注册</a>
+            </form>
+      
+             {% endif %}
+          </div><!--/.nav-collapse -->
+        </div><!--/container-->
+      </div>
+    </div>
+
+    <div class="container">
+
+  <div class="row">
+        <div class="span3">
+        <table>    
+            <tbody>
+            <tr>
+             <a href="#" class="thumbnail">
+            <img src="{% static "images/jay.jpg" %}" alt="">
+             </a>
+             </tr>
+             <br/>
+             <tr>
+                  <h4 style="text-align:center">周杰伦</h4>
+
+             </tr>
+               </tbody>
+          </table>
+       </div><!--span3--> 
+       
+         
+     
+        <div class="span3">
+        <table>    
+            <tbody>
+            <tr>
+             <a href="#" class="thumbnail">
+            <img src="{% static "images/jay.jpg" %}" alt="">
+             </a>
+             </tr>
+             <br/>
+             <tr>
+                 <h4 style="text-align:center">周杰伦</h4>
+
+
+             </tr>
+               </tbody>
+          </table>
+       </div><!--span3--> 
+      
+
+
+      <div class="span3">
+        <table>    
+            <tbody>
+            <tr>
+             <a href="#" class="thumbnail">
+            <img src="{% static "images/jay.jpg" %}" alt="">
+             </a>
+             </tr>
+             <br/>
+             <tr>
+                  <h4 style="text-align:center">周杰伦</h4>
+
+
+             </tr>
+               </tbody>
+          </table>
+       </div><!--span3--> 
+      
+
+
+     <div class="span3">
+        <table>    
+            <tbody>
+            <tr>
+             <a href="#" class="thumbnail">
+            <img src="{% static "images/jay.jpg" %}" alt="">
+             </a>
+             </tr>
+             <br/>
+             <tr>
+                 <h4 style="text-align:center">周杰伦</h4>
+
+
+             </tr>
+               </tbody>
+          </table>
+       </div><!--span3--> 
+      
+</div><!--row-->
+      
+    
+
+    <footer>
+        <p>&copy; <strong>0611cpp</strong></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  {% endblock %}

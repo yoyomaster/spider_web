@@ -1,52 +1,9 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>明日头条</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% extends 'base.html' %}
 
-    <!-- Le styles -->
-    <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
-    <link href="{% static "assets/css/bootstrap-responsive.css" %}" rel="stylesheet">
+    {% load staticfiles %}
+ 
+ {% block body_block %}
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="{% static "assets/ico/favicon.ico" %}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "assets/ico/apple-touch-icon-114-precomposed.png" %}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "assets/ico/apple-touch-icon-72-precomposed.png" %}">
-    <link rel="apple-touch-icon-precomposed" href="{% static "assets/ico/apple-touch-icon-57-precomposed.png" %}">
-  </head>
-
-  <body>
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="{% url 'base' %}">明日头条</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="{% url 'base' %}">首页</a></li><!--href填空值返回本页面-->
-              <li><a href="#about">关于</a></li>
-              <li><a href="#contact">联系</a></li>
-            </ul>
  
              <!--判断用户是否登陆-->
               {% if user.is_authenticated %}
@@ -148,45 +105,4 @@
 
 
 
-     <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{% static "assets/js/jquery.js" %}"></script>
-    <script src="{% static "assets/js/jquery.min.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-transition.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-alert.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-modal.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-dropdown.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-scrollspy.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-tab.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-tooltip.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-popover.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-button.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-collapse.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-carousel.js" %}"></script>
-    <script src="{% static "assets/js/bootstrap-typeahead.js" %}"></script>
-
-  </body>
-</html>
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	<title>个人主页</title>
-</head>
-<body>
-	
-	<h2> {{user.username}}  欢迎回家</h2>
-	<a href="{% url 'modifyPassword' %}">修改密码</a><br/>
-	<img src="{{ userImage }}">   
-	<br/><br/>
-	{% if  news_list %}
-		评论过的新闻:<br/>
-		{% for  news in news_list %}
-			<a href="{{news.url}}">{{news.title}}</a><br>
-		{% endfor %}
-	{% endif %}
-	<br/><br/>
-	<a href="{% url 'index' %}">回到首页</a>
-</body>
-</html> -->
+    {% endblock %}

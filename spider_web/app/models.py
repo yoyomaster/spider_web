@@ -22,7 +22,7 @@ class UserProfile(models.Model):    #用户信息表
 
 class Picture(models.Model):  #保存新闻中的图片URL
 #	picture = models.ImageField(upload_to = 'news_images', blank = True)
-	picture = models.URLField(max_length = 256)  #保存图片的URL
+	picture = models.URLField(max_length = 256,null = True)  #保存图片的URL
 	#news_id = models.ForeignKey(News)  #与news表外键相互引用
 	pictureID = models.TextField(max_length = 100,blank = True, null=True)  #与News表的中picture_id对应
 
@@ -30,18 +30,18 @@ class Picture(models.Model):  #保存新闻中的图片URL
 		return str(self.id)
 
 class News(models.Model): #新闻表
-	newsType = models.TextField(max_length = 20) #新闻类型
+	newsType = models.TextField(max_length = 20,null = True) #新闻类型
 	newsLable = models.TextField(max_length  = 20, blank = True,null = True) #新闻label
-	newsTitle = models.TextField(max_length = 128)  #新闻标题
-	newsContent = models.TextField(max_length = 51200)  #新闻正文
+	newsTitle = models.TextField(max_length = 128,null = True)  #新闻标题
+	newsContent = models.TextField(max_length = 51200,null = True)  #新闻正文
 	picture_id = models.TextField(max_length = 100,blank = True, null=True) #与Picture表对应的pictureID
-	browseNumber = models.IntegerField(default = 0) #当前新闻被浏览的次数
-	commentNumber = models.IntegerField(default = 0) #评论次数
-	likesNumber = models.IntegerField(default = 0) #点赞数
-	newsTime = models.DateTimeField(auto_now_add = True) #新闻生成时间
-	newsUrl = models.TextField(max_length = 256) #新闻来源链接
-	newsAbstract = models.TextField(max_length = 100)# 新闻概要
-	urlmd5id = models.TextField(max_length  =50) #md5加密去重，对url加密
+	browseNumber = models.IntegerField(default = 0,null = True) #当前新闻被浏览的次数
+	commentNumber = models.IntegerField(default = 0,null = True) #评论次数
+	likesNumber = models.IntegerField(default = 0,null = True) #点赞数
+	newsTime = models.DateTimeField(auto_now_add = True,null = True) #新闻生成时间
+	newsUrl = models.TextField(max_length = 256,null = True) #新闻来源链接
+	newsAbstract = models.TextField(max_length = 100,null = True)# 新闻概要
+	urlmd5id = models.TextField(max_length  =50,null = True) #md5加密去重，对url加密
 	def __unicode__(self):
 		return self.newsTitle
 

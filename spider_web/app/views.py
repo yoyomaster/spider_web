@@ -12,7 +12,7 @@ from django.db import connection,transaction
 def index(request):
 	news_list = []
 	# news_list = News.objects.all()[0:10]
-	news_list1 = News.objects.order_by('?')
+	news_list1 = News.objects.order_by('?')[:20]
 	#print news_list  # for debug
 	for one_news in news_list1:
 		picRecord =Picture.objects.filter( pictureID = one_news.picture_id )
@@ -29,11 +29,12 @@ def index(request):
 		newsList['commentNumber'] = one_news.commentNumber
 		newsList['newsUrl'] = one_news.newsUrl
 		newsList['id'] = one_news.id
+		newsList['type'] = one_news.newsType
 		news_list.append(newsList)
 		print picUrl
 		print "------------------------------------------------------------------"
 
-	return render(request, 'app/base.html', {'news_list':news_list})
+	return render(request, 'app/index.html', {'news_list':news_list})
 
 def showNews(request, newsID):
 	#News表浏览数+1
@@ -181,6 +182,10 @@ def modifyPassword(request):
 		return render(request, "app/modifyPassword.html",{})
 			
 
+def  contact(request):
+	return render(request, "app/contact.html",{})
 
+def  about(request):
+	return render(request,"app/about.html",{})
 
 
